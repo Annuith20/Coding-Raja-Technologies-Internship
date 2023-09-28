@@ -1,0 +1,64 @@
+income=0
+expenses=[]
+
+def add_inc():
+  global income
+  amt=int(input("Enter income: "))
+  income+=amt
+
+def add_exp():
+  cat=input("Enter category: ")
+  exp=int(input("Enter expense: "))
+  expenses.append((cat,exp))
+
+def disp_exp():
+  for cat,exp in expenses:
+    print("Category: ",cat, "Expense: ",exp)
+  
+def calc_budget():
+  tot=0
+  for cat,exp in expenses:
+    tot+=exp
+  rem=income-tot
+  print("Remaining budget: ",rem)
+
+def store():
+  with open("tran.txt",'w') as file:
+    file.write(f"Income: {income}")
+    for cat,exp in expenses:
+      file.write(f"\nCategory: {cat},Expenses: {exp}")
+
+def load():
+  global income
+  try:
+    with open("tran.txt",'r') as file:
+      income=int(file.readline().strip())
+      for line in file:
+        cat,exp=line.strip().split(',')
+        expenses.append((cat,int(exp)))
+
+  except FileNotFoundError:
+    pass
+  
+
+def main():
+  
+  while(1):
+    print("Menu\n\n1.Add income \n 2.Add expense \n 3.Display expenses \n 4.Display budget \n 5.Save and quit")
+    ch=int(input("Enter choice: "))
+    if ch==1:
+      add_inc()
+    elif ch==2:
+      add_exp()
+    elif ch==3:
+      disp_exp()
+    elif ch==4:
+      calc_budget()
+    elif ch==5:
+      store()
+      break
+    else:
+      print("Invalid input")
+
+if __name__=="__main__":
+  main()
