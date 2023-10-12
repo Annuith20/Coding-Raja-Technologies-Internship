@@ -166,7 +166,9 @@ def main():
       calc_budget()           #Calculate budget
     elif ch==5:
       store()  
+      print("\n")
       display_graph1(['Food', 'Home', 'Work', 'Fun', 'Misc'], [food, home, work, fun, misc])
+      print("\n\n")
       display_graph2()  # Display the graph           
       break
     else:
